@@ -7,14 +7,14 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 1 ) ],
-"loop": true,
-"name": "Skiing",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
 "name": "Drag",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "Skiing",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 4 ) ],
@@ -27,8 +27,7 @@ animations = [ {
 radius = 7.0
 height = 14.0
 
-[node name="Skier" type="Area2D"]
-position = Vector2( 360, 147 )
+[node name="Skier" type="Area2D" groups=["skiiers"]]
 scale = Vector2( 2, 2 )
 script = ExtResource( 5 )
 
@@ -46,5 +45,11 @@ autostart = true
 position = Vector2( 0, -2 )
 scale = Vector2( 1, 1.2 )
 
+[node name="TripTimer" type="Timer" parent="."]
+wait_time = 1.5
+autostart = true
+
+[connection signal="input_event" from="." to="." method="_on_Skier_input_event"]
 [connection signal="timeout" from="DirectionTimer" to="." method="_on_DirectionTimer_timeout"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="timeout" from="TripTimer" to="." method="_on_TripTimer_timeout"]
